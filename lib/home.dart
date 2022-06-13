@@ -1,7 +1,6 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled19/add.dart';
+import 'package:untitled19/Authentication/Sign_up/my_sign_up.dart';
 import 'package:untitled19/constraint/style.dart';
 import 'package:untitled19/edit.dart';
 
@@ -14,11 +13,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // Getting Student all Records
-  final Stream<QuerySnapshot> employeeRecords =
-  FirebaseFirestore.instance.collection('users').snapshots();
+  final Stream<QuerySnapshot> employeeRecords = FirebaseFirestore.instance.collection('users').snapshots();
   // For Deleting Users
-  CollectionReference delUser =
-  FirebaseFirestore.instance.collection('users');
+  CollectionReference delUser = FirebaseFirestore.instance.collection('users');
   Future<void> _delete(id) {
     return delUser
         .doc(id)
@@ -61,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const AddPage(),
+                          builder: (context) => const MySignUp(),
                         ),
                       );
                     },
@@ -124,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                             child: SizedBox(
                               child: Center(
                                 child: Text(
-                                  firebaseData[i]['name'],
+                                  firebaseData[i]['userName'],
                                   style: txt2,
                                 ),
                               ),
@@ -149,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => EditPage(
-                                          docID: firebaseData[i]['id'],
+                                          docID: firebaseData[i]['uid'],
                                         ),
                                       ),
                                     );
@@ -161,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    _delete(firebaseData[i]['id']);
+                                    _delete(firebaseData[i]['uid']);
                                     //print(firebaseData);
                                   },
                                   icon: const Icon(
